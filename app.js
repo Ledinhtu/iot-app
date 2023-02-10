@@ -203,7 +203,7 @@ io.on('connection', (socket) => {
         if (data) {
             console.log(data.state);
             io.emit('bedroom-lamp1', data.state);      
-        } else {
+        } else {        
             console.log("(onValue) No data available");
         }
     });
