@@ -152,40 +152,20 @@
     });
 
     const btn1_on = document.querySelector('#button-1-on');
-    // var bool = true;
-
     btn1_on.addEventListener('click', (e) => {
-        //const number = 1;
-        // bool = !bool
-        // console.log('listened Click');
-        socket.emit('button-1', {
+        console.log('on click');
+        socket.emit('livingroom-btn-lamp1', {
             message: 'on'
         });
     })
 
     const btn1_off = document.querySelector('#button-1-off');
-    // var bool = true;
-
     btn1_off.addEventListener('click', (e) => {
-        // console.log('listened Click');
-        socket.emit('button-1', {
+        console.log('off click');
+        socket.emit('livingroom-btn-lamp1', {
             message: 'off'
         });
     })
-
-    // const state_bt1 = document.querySelector('#state-btn1');
-    // socket.on('state-1', (message) => {
-    //     var state = 'OFF';
-    //     if (message.message) { state = 'ON' }
-    //     if (state == 'ON') {
-    //         state_bt1.innerHTML = 'SÁNG';
-    //     } else {
-    //         state_bt1.innerHTML = 'TỐI';
-
-    //     }
-    //     // console.log('given Click');
-    //     // console.log(message);
-    // });
 
     const temp_dht11 = document.querySelector('#temp-1');
     socket.on('temp-1', (mess) => {
@@ -196,12 +176,10 @@
     const humi_dht11 = document.querySelector('#humi-1');
     socket.on('humi-1', (mess) => {
         humi_dht11.innerHTML = mess + '%';
-        // console.log(mess);
     });
 
     const light1 = document.querySelector('#light-1');
     socket.on('light-1', (mess) => {
-        // light1.innerHTML = mess.toUpperCase();
         if (mess.toUpperCase() == 'ON') {
             light1.innerHTML = 'SÁNG';
         } else {

@@ -168,7 +168,7 @@ app.post('/kitchen', (req, res) => {;
 io.on('connection', (socket) => {
     console.log('user connected');
 
-    onValue(ref(database, 'temp/now'), (snapshot) => {
+    onValue(ref(database, 'livingroom/sensordht11/temp/now'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
             console.log(data.temp);
@@ -178,7 +178,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    onValue(ref(database, 'humi/now'), (snapshot) => {
+    onValue(ref(database, 'livingroom/sensordht11/humi/now'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
             console.log(data.humi);
@@ -188,7 +188,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    onValue(ref(database, '/state/light/device-1/now/'), (snapshot) => {
+    onValue(ref(database, '/livingroom/lamp1/now/'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
             console.log(data.state);
@@ -218,10 +218,9 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('button-1', data => {
-        // console.log(data);
-        // io.emit('state-1', data);
-        set(ref(database, 'control/light/device-1'), {
+    socket.on('livingroom-btn-lamp1', data => {
+        console.log(data.message);
+        set(ref(database, 'control/livingroom/lamp1'), {
             signal: data.message
           })
           .then(()=>{
