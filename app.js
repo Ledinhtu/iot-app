@@ -219,6 +219,11 @@ io.on('connection', (socket) => {
     });
 
     socket.on('livingroom-btn-lamp1', data => {
+        set(ref(database, 'control/livingroom/lamp1'), {
+            signal: 'rst'
+          })
+          .then(()=>{})
+          .catch((e)=>console.log(`(E): ${e}`));
         console.log(data.message);
         set(ref(database, 'control/livingroom/lamp1'), {
             signal: data.message
@@ -231,6 +236,11 @@ io.on('connection', (socket) => {
 
     socket.on('bedroom-btn-lamp1', data => {
         set(ref(database, 'control/bedroom/lamp1'), {
+            signal: 'rst'
+          })
+          .then(()=>{})
+          .catch((e)=>console.log(`(E): ${e}`));
+        set(ref(database, 'control/bedroom/lamp1'), {
             signal: data.message
           })
           .then(()=>{
@@ -240,6 +250,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('kitchen-btn-lamp1', data => {
+        set(ref(database, 'control/kitchen/lamp1'), {
+            signal: 'rst'
+          })
+          .then(()=>{})
+          .catch((e)=>console.log(`(E): ${e}`));
+    
         set(ref(database, 'control/kitchen/lamp1'), {
             signal: data.message
           })
