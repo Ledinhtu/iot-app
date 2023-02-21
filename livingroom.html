@@ -152,8 +152,10 @@
     });
 
     const btn1_on = document.querySelector('#button-1-on');
+    // thêm xử lí sự kiện bấm nút bật đèn phòng khách
     btn1_on.addEventListener('click', (e) => {
         console.log('on click');
+        // emit message
         socket.emit('livingroom-btn-lamp1', {
             message: 'on'
         });

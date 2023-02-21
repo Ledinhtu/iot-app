@@ -48,7 +48,6 @@ app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/login.html');
 });
 
-
 app.get('/app', (req, res) => {;
     if (req.cookies.userId != cookie.userId) {
         res.redirect('/login');
@@ -165,19 +164,23 @@ app.post('/kitchen', (req, res) => {;
     }
 });
 
+// xử lí khi có connect tới server socket
 io.on('connection', (socket) => {
     console.log('user connected');
 
+    // bắt sự thay đổi của nhiệt độ trên firebase
     onValue(ref(database, 'livingroom/sensordht11/temp/now'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
             console.log(data.temp);
+            // emit giá trị nhiệt độ
             io.emit('temp-1', data.temp);      
         } else {
             console.log("(onValue) No data available");
         }
     });
 
+    // bắt sự thay đổi của  độ ẩm trên firebase
     onValue(ref(database, 'livingroom/sensordht11/humi/now'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -188,6 +191,7 @@ io.on('connection', (socket) => {
         }
     });
 
+    // bắt sự thay đổi của trạng thái đèn phòng khách trên firebase
     onValue(ref(database, '/livingroom/lamp1/now/'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -198,6 +202,7 @@ io.on('connection', (socket) => {
         }
     });
 
+    // bắt sự thay đổi của trạng thái đèn phòng ngủ trên firebase
     onValue(ref(database, '/bedroom/lamp1/now'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -208,6 +213,7 @@ io.on('connection', (socket) => {
         }
     });
 
+    // bắt sự thay đổi của trạng thái đèn phòng bếp trên firebase
     onValue(ref(database, '/kitchen/lamp1/now'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -264,12 +270,10 @@ io.on('connection', (socket) => {
           })
           .catch((e)=>console.log(`(E): ${e}`))
     });
-
-
     
 });
 
-
+// khởi tao server lắng nghe tại cổng `port`
 server.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
